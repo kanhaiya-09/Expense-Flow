@@ -22,3 +22,44 @@ res.end() comes from Node.js itself. It simply ends the response
 WHILE
 res.send() is an Express method that is more versatile. It can automatically send:
 Strings, HTML, JSON, Objects, Buffers
+
+
+// TECH STACK
+=> Node.js
+=> Express.js
+=> MongoDB
+=> Mongoose
+=> EJS (until React)
+=> CSS
+
+
+------------------------------------STEP 1: EJS, Static Files Link-----------------------------------
+=> Installing EJS (Embedded JavaScript Templating Engine) to write our HTML codes in it.
+=> Express needs to knwo, my view engine is ejs
+=> app.set("view engine", "ejs")'
+=> Writing HTML in home.ejs
+=> res.render('home', req.query) in the get request
+=> In express, to serve static files like images, CSS, js, use built-in express.static(dir-name i.e. public)
+=> This tells Express that public is root directory for all static assets
+
+=> <link rel="stylesheet" href="/css/style.css"> in home.ejs
+=> style.css in /public/css
+=> background: blue
+
+-----------------------------------STEP 2: Dynamic Data-----------------------------------------------
+=> res.render(
+    Page,
+    Data
+)
+=> Data can be username, title tc.
+=> The data is an object {} containing the data you want to send.
+=> Use this syntax to print the data in the home.ejs rendering: <%= variableName %>
+=> Backend (Express)
+            ↓
+Sends an object
+            ↓
+EJS receives that object
+            ↓
+EJS displays values using <%= %>
+            ↓
+Browser shows the final HTML
