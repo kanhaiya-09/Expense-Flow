@@ -1,0 +1,24 @@
+=> Initialised git (git init)
+Git is a Version control system of computer
+It will keep a record of all the versions of our projects
+
+npm init -y
+npm i express
+
+U => means Git is tracking these as uncommitted files
+
+When using app.listen. Try to give an call back function with it instead of direct console.log
+Because listen() expects a callback function that runs after the server starts.
+
+1. Started a Server 8003
+2. Didn't had any route( Refers to how an application's endpoint (URLs) respond to client requests )
+3. Got Cannot GET on the server local host
+4. Given a get request with "/" to route the endppoint of local host ending with"/"
+5. app.get("/", (req, res) => {})
+
+
+I M P O R T A N T =>
+res.end() comes from Node.js itself. It simply ends the response
+WHILE
+res.send() is an Express method that is more versatile. It can automatically send:
+Strings, HTML, JSON, Objects, Buffers
