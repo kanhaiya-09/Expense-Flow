@@ -1,3 +1,41 @@
 body{
-    background-color: lightblue;
+    background-color: rgb(7, 23, 29);
+    color: white;
+}
+
+.header{
+    padding:20px;
+    display:flex;
+    font-weight: bolder;
+    justify-content: space-between;
+    align-items: center;
+}
+.heading{
+    color: white;
+    margin: 20px;
+    padding: 20px;
+    
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+.logo{
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(17, 35, 192);
+    font-weight: bolder;
+}
+.links a{
+    padding:15px;
+    color: rgb(67, 185, 228);
+}
+
+button:hover{
+    color:black;
+    background: lightpink;
+}
+.start{
+    display:block;
+    margin: 0px auto;
+    background-color: lightgreen;
+    border-radius: 5px;
 }

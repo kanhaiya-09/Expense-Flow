@@ -1,3 +1,19 @@
+✅ Git Setup
+✅ Express Setup
+✅ EJS Setup
+✅ Static Files
+✅ Landing Page
+🟡 Modular Routing
+⬜ Controllers
+⬜ MongoDB
+⬜ Authentication
+⬜ Expense CRUD
+⬜ Income CRUD
+⬜ Dashboard
+⬜ Reports
+⬜ Deployment
+
+
 => Initialised git (git init)
 Git is a Version control system of computer
 It will keep a record of all the versions of our projects
@@ -63,3 +79,19 @@ EJS receives that object
 EJS displays values using <%= %>
             ↓
 Browser shows the final HTML
+
+
+----------------------------------------STEP 3: Routes----------------------------------------
+In Route=> const XYZ = express.Router()
+Now, we can use the functionalities like get, post, patch etc.
+=> Then, used cotrollers to store all the functions.
+=> We exported an object from the controllers as it has many functions. 
+
+=> WHY TO USE ASYNC FUNCTION ?
+=> Let, we are finding anything in DB. 
+Can JavaScript instantly know whether the user exists?
+No.
+MongoDB has to search.
+So Node says:
+"I'll wait (await) until MongoDB replies."
+For await to work, the surrounding function must be marked async.
