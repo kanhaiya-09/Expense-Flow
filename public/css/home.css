@@ -1,10 +1,13 @@
+/* HOMEPAGE */
+
 body{
-    background-color: rgb(7, 23, 29);
+    background-color: rgb(21, 74, 94);
     color: white;
 }
 
 .header{
-    padding:20px;
+    border: 2px solid black;
+    padding: 5px;
     display:flex;
     font-weight: bolder;
     justify-content: space-between;
@@ -12,16 +15,18 @@ body{
 }
 .heading{
     color: white;
-    margin: 20px;
+    margin: 10px;
     padding: 20px;
     
     font-family: 'Times New Roman', Times, serif;
     text-align: center;
 }
 .logo{
+    margin: 5px;
+    padding: 20px;
     font-size: 30px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(17, 35, 192);
+    color: rgb(255, 255, 255);
     font-weight: bolder;
 }
 .links a{
@@ -39,3 +44,5 @@ button:hover{
     background-color: lightgreen;
     border-radius: 5px;
 }
+
+

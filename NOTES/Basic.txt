@@ -13,6 +13,20 @@
 ⬜ Reports
 ⬜ Deployment
 
+Browser
+↓
+Express
+↓
+Route
+↓
+Controller
+↓
+MongoDB
+↓
+Controller
+↓
+View
+
 
 => Initialised git (git init)
 Git is a Version control system of computer
@@ -59,6 +73,9 @@ Strings, HTML, JSON, Objects, Buffers
 => This tells Express that public is root directory for all static assets
 
 => <link rel="stylesheet" href="/css/style.css"> in home.ejs
+
+=> EXPRESS ONLY RECEIVES INPUTS WHEN IT HAS A NAME
+
 => style.css in /public/css
 => background: blue
 
@@ -95,3 +112,249 @@ MongoDB has to search.
 So Node says:
 "I'll wait (await) until MongoDB replies."
 For await to work, the surrounding function must be marked async.
+
+=> When the browser sends a request, Express creates two objects.
+=> Objects created by Express itself: Request, Response 
+
+-----------------------------------------STEP 4: AUTHENTICATION UI---------------------------------------
+User
+↓
+Signup Page
+↓
+Fill Form
+↓
+Click Submit
+↓
+POST Request
+↓
+Route
+↓
+Controller
+↓
+Database
+↓
+Success
+
+//SignUp Page
+=> While using input tag, always put name="" in it which will further
+be received by express
+=> <form action="/signup" method="post">
+=> Till now, Express still doesn't know how to read data
+=> Sign Up data received only.
+
+-------------------------------------------STEP 5: Getting Post data in terminal-------------------------------------
+
+=> What is req.body ?
+=> In the post request, along with the request "POST /signup HTTP/1.1"
+=> along with your data like name, email, password that is body
+
+=> How Express know your data have different variables ?
+=> Express gets: fullname=Kanhaiya&email=test@gmail.com&password=123
+=> So, here middlewares come.
+Browser => Raw Data => Translator => JavaScript Object
+
+=> The translator is: Body Parsing Middleware
+app.use(express.urlencoded({
+    extended:false
+}))
+Express (or rather the middleware) attaches a new property to the 
+request object after successfully parsing the incoming data.
+
+
+Browser
+↓
+POST /signup
+↓
+Node receives HTTP request
+↓
+Express creates req object
+↓
+Express runs Middleware
+↓
+Middleware adds req.body
+↓
+Route
+↓
+Controller
+↓
+console.log(req.body)
+
+----------------------------------------STEP 6: MONGO DB & MONGOOSE----------------------------------------------------
+
+=> When we stop the server with (ctrl+c), where does the data go?
+=> Ans. is Nowhere, It existed only inside RAM. When Node stopped
+=> RAM was cleared, That's why we need a Database. 
+
+=> Browser => Express => Controller => MongoDB => Saved
+
+=> Node cannot talk directly to MongoDB
+=> MongoDB speaks MongoDB. So, we need a translator i.e. Mongoose
+
+=> A Schema defines the structure and validation rules for documents
+ in a MongoDB collection. A Model is a JavaScript object created 
+ from that schema and is used to create, read, update, and delete documents.
+
+=> After creating schema, tell mongoose to create a Model
+=> mongoose.model("User", Schema Name)
+
+=> Now, model needs connection to database to store the data.
+=> The connection, Database Connection, Environment Variables, Cloudinary
+Email Configuration part is done in Config file.
+
+
+-----------------------------------------STEP 7: Configuration & Connection--------------------------------
+
+=> connection through the function in config/db with try and catch
+=> index.js => function name of connection();
+=> WHAT DOES TRY AND CATCH DO ?
+=> Program  => Try this work => If success => Continue => If error => Jump to catch
+=> It doesn't let the program & javascript execution stop.
+
+=> In error, we did err.message which prints the entire error object instead of just scheme
+
+=> process.exit(0) means: Program ended successfully.
+=> process.exit(1) means: Program terminated because of an error. That's why we use 1 when the database connection fails.
+
+=> mongoose.connect(...) expects the address of your MongoDB database.
+=> This address is called the connection Strings or MongoDB URI
+
+
+WE CAN USE THIS:
+.env
+MONGO_URL=mongodb+srv://kanhaiya:yourPassword@cluster0.xxxxx.mongodb.net/expenseflow
+Then:
+require("dotenv").config();
+and
+await mongoose.connect(process.env.MONGO_URL);
+Notice:
+mongoose.connect() still receives a string.
+
+=> There's a difference between "tutorial code" and "production-ready code."
+
+=> There are two common ways to use MongoDB
+1. Local MongoDB:
+
+You install MongoDB on your own computer.
+Connection string:
+mongodb://127.0.0.1:27017/expenseflow
+
+// ADVANTAGES:
+No internet required.
+Simple to start.
+Good for learning.
+
+// DISADVANTAGES:
+Only works on your machine.
+If someone else clones your project, they must install MongoDB too.
+
+
+2. MongoDB Atlas (Cloud):
+
+MongoDB runs on cloud servers.
+Connection string:
+mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/expenseflow
+
+// ADVANTAGES:
+Accessible from anywhere.
+Easy to deploy.
+Industry standard for personal projects and many startups.
+
+// DISADVANTAGES:
+Requires an Atlas account.
+Slightly more setup.
+
+
+-------------------------------------------STEP 8: Setting Up MongoDB Atlas---------------------------------------------
+
+MongoDB Atlas Account => Project => Cluster => Database => Collection => documents
+
+=> Created a cluster => Taken the MongoDB string
+=> created a.env file in thw root of our project
+=> MONGO_DB = connection_string
+=> Now, if we want to name our db then we can add the name after "mongodb.net/" in the connection string
+=> <password_db> Replaced with your actual password
+=> If the password includes special character like @ or # or $, it should be parsed url encoded to write in Strings
+=> Because the @ says, here the password part is over
+=> URL Encoding: @ -> %40, # -> %50 or anything like this
+
+=> Now, add node_modules.env in gitignore
+=> This ensures our password doesn't get pushed into our github and no-one can see 
+
+// Connect
+=> npm i dotenv
+=> index.js => require("dotenv").config();
+=> in config/db => process.env.MONGO_URL in the connection string space
+
+// Till Now FLOW:
+Browser => Form => Express => Controller => console.log(req.body)
+// From Now FLOW:
+Browser => Form => Express => Controller => Uer Model => MongoDB
+
+
+--------------------------------------------STEP 9: Database Storing---------------------------------------------
+
+// Method 1
+const user = new User({
+
+});
+Question: Has it been saved? => No, It's only an object.
+To save,
+await user.save();
+
+// Method 2
+await User.create({
+
+});
+This creates AND saves. Internally, it's doing almost the same thing.
+// User: Model and user: created
+
+
+
+------------------------------------------STEP 10: Password Hashing---------------------------------------------
+
+=> Difference Between Hashing and Encryption
+=> Hashing: "Hello" converted to "Ajbdbuwb" but we CANNOT get back this password in original form
+We will use: Hash(User Input)==Hash(Database). NO decryption needed
+=> Encryption: "Hello" converted to "Ajbdbuwb" but we CAN get back this password in original form (Decryption Possible)
+
+Flow: Browser => POST => EXPRESS => Controller => Hash Password => Save => MongoDb
+
+Using bcrypt which adds Salt
+npm i bcrypt
+const bcrypt = require("bcrypt")
+
+Now, we will not save the actual password in the db instead use bcrypt.hash(password)
+bcrypt.hash() function return a promise. So, await is compulsory
+
+Now, try to check whether db is connected or not.
+First, it will always say Database connection successful or failed acc to code
+
+=> We can add console.log(mongoose.connection.name)
+=> It will print our database name
+=> If we haven't given anything after mongodb.net/ then it will print database name as "test" which is as default
+
+
+------------------------------------STEP 11: Validation-------------------------------------------------------------
+
+=> Flow: Browser => Post => Controller => Search User => Found in DB => Return => done
+                                                      => Not Found in DB => User Created
+=> Now, we have already specified in our schema that required: true
+=> But in authControllers again we will check if(!fullname){return res.status(400).send("all fields are required)};
+=> Because this is a good practice
+
+=> We will use User.findOne({ email }) to keep all users unique
+
+// STATUS CODES
+200:	OK	Normal successful request
+201:	Created	Signup, Add Expense
+400:	Bad Request	Missing fields
+401:	Unauthorized	Invalid login/JWT
+404:	Not Found	Wrong URL
+409:	Conflict	Email already exists
+500:	Internal Server Error	Unexpected server error
+
+// TERMINAL ERROR: data and salt error. 
+It is not MongoDB error, it is bcrypt error
+Beacuse bcrypt.hash() requires two arguments data and salt rounds
+data -> the password to hash
+salt rounds -> usually 10

@@ -1,0 +1,45 @@
+/* SIGNUP PAGE */
+body{
+    background-color: rgb(21, 74, 94);
+    color: white;
+}
+.logo{ 
+    margin: 5px;
+    padding: 20px;
+    font-size: 30px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+}
+
+.signuphead{
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: rgb(11, 53, 69) ;
+    color: white;
+    margin: 20px 10px 20px 10px;
+    padding: 20px;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+label{
+    padding:10px;
+    margin:5px;
+}
+button:hover{
+    color:black;
+    background: lightpink;
+}
+.registerbutton{
+    display:block;
+    margin: 0px auto;
+    background-color: lightgreen;
+    border-radius: 5px;
+}
