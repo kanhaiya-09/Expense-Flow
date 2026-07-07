@@ -3,16 +3,20 @@
 ✅ EJS Setup
 ✅ Static Files
 ✅ Landing Page
-🟡 Modular Routing
-⬜ Controllers
-⬜ MongoDB
-⬜ Authentication
+✅ Modular Routing
+✅ Controllers
+✅ MongoDB
+✅ Register & Validation
+✅ Authentication
+✅ JWT 
 ⬜ Expense CRUD
 ⬜ Income CRUD
 ⬜ Dashboard
 ⬜ Reports
 ⬜ Deployment
 
+
+// INITIAL FLOW
 Browser
 ↓
 Express
@@ -358,3 +362,61 @@ It is not MongoDB error, it is bcrypt error
 Beacuse bcrypt.hash() requires two arguments data and salt rounds
 data -> the password to hash
 salt rounds -> usually 10
+
+
+--------------------------------------STEP 12: Login and Authentication-----------------------------------
+
+=> We will use bcrypt.compare() to match the entered password with registered password
+bcrypt.compare(
+    "123456",
+    storedHash
+)
+
+=> Flow:
+User => Enter Email & Password => POST/Login => Controller => Find User => Yes Found => bcrypt.compare() => Correct => Login Success
+                                                                        => Not Found => Invalid Credentials
+
+--------------------------------------STEP 13: JWT-----------------------------------------------------------
+
+=> New Flow: 
+=> Login => Verify Password => Send JWT => Browser stores JWT => Future Requests => JWT Verified => User Identified
+
+=> Inside JWT => Header, Payload, Signature
+=> Header contains:
+{
+    "alg":"HS256",
+    "typ":"JWT"
+}
+
+=> Payload contains:
+{
+    "_id":"12345",
+
+    "email":"kanhaiya@gmail.com"
+}
+
+=> Signature is generated using Header + Payload + Secret Key
+=> Only the server knows the secret key, neither Browser nore MongoDB
+
+=> Created a Services/tokenService folder for JWT creation
+
+=> Install JWT: install i jsonwebtoken
+
+Now, in services.js
+=> Imported jsonwebtoken library and created a SECRET_KEY in .env file and used here as process.env.SECRET_KEY
+=> We made two functions setUser (create token) and getUser
+jwt.sign() => crete token with parameters:
+{
+    "_id":"12345",
+    "email":"kanhaiya@gmail.com"
+}, SECRET_KEY, // Header=> Payload=> Secret Key=> Signature: 
+{
+    expiresIn: 1d, // Token expires in 1 day
+}
+
+=> Then created getUSer  (verify token)
+
+JWT doesn't store sessions.
+Server remembers nothing. Everything required is inside the JWT itself.
+This is called Stateless Authentication
+That's why JWT scales so well in distributed systems and cloud deployments.

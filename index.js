@@ -21,7 +21,7 @@ app.use(express.urlencoded({
 
 
 app.use("/", homeRouter);
-app.use("/", authRouter)
+app.use("/", authRouter);
 
 
 // Database

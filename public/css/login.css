@@ -20,7 +20,7 @@ body{
     margin: 20px 10px 20px 10px;
     padding: 20px;
     font-size: 40px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-align: center;
 }
 form{
@@ -37,7 +37,7 @@ button:hover{
     color:black;
     background: lightpink;
 }
-.registerbutton{
+.loginButton{
     display:block;
     margin: 0px auto;
     background-color: lightgreen;

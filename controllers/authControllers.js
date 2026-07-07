@@ -34,15 +34,56 @@ async function postSignup(req, res){
         });
 
         await user.save();
-        res.send("User Registered Successfully");
+        return res.send("User Registered Successfully");
     } catch (err) {
         console.log(err.message);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error");
     }
 }
+
+// JWT Require
+const { setUSer } = require("../services/tokenService")
+
+
+async function postLogin(req, res){
+    try{
+        const { email, password } = req.body;
+
+        //Validation
+        if(!email || !password){
+            return res.status(400).send("All fields are required");
+        }
+
+        // Find User
+        const user = await User.findOne({ email });
+
+        if(!user){
+            return res.send("Invalid Email or Password");
+        }
+
+        // Compare Password
+        const isMatch = bcrypt.compare(password,
+            user.password
+        );
+
+        if(!isMatch){
+            return res.status(401).send("Invalid Email or Password");
+        }
+
+        // Generate JWT
+        const token = generateToken(user)
+        return res.send(token);
+
+    } catch (err) {
+        console.log(err.message)
+        return res.status(500).send("Internal Server Error")
+    }
+}
+
 
 module.exports = {
     handleSignupRoute,
     handleLoginRoute,
-    postSignup
+    postSignup,
+    postLogin,
 }
