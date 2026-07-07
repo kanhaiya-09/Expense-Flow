@@ -20,6 +20,10 @@ app.use(express.urlencoded({
 })) //Body Parser Middleware
 
 
+// Cookie
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
 app.use("/", homeRouter);
 app.use("/", authRouter);
 

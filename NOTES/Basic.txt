@@ -420,3 +420,22 @@ JWT doesn't store sessions.
 Server remembers nothing. Everything required is inside the JWT itself.
 This is called Stateless Authentication
 That's why JWT scales so well in distributed systems and cloud deployments.
+
+
+---------------------------------------------STEP 14: Cookie-----------------------------------------------
+// index.js
+=> const cookieParser = require("cookie-parser");
+=> app.use(cookieParser()); //middleware
+
+=> Cookie are HTTP feature
+=> Browser sends the POST, generates token, now express execute:
+res.cookie("name", value); name = token, value = token
+=> Express adds a special HTTP response header which looks like:
+HTTP/1.1 200 OK
+
+Set-Cookie:
+token=eyJhbGc...
+
+Now, instead of res.send(token) => We will redirect the user to ("/")
+
+Browser => POST /login => Express => Verify Password => Generate JWT => Set-Cookie => Redirect /

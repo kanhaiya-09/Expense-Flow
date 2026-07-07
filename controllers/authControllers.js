@@ -72,7 +72,8 @@ async function postLogin(req, res){
 
         // Generate JWT
         const token = generateToken(user)
-        return res.send(token);
+        res.cookie("token", token)
+        return res.redirect("/");
 
     } catch (err) {
         console.log(err.message)
