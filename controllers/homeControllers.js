@@ -5,6 +5,8 @@ async function getHomePage(req, res){
         projectName: "ExpenseFlow",
     })
 }
-module.exports ={
+
+module.exports = {
     getHomePage,
+    
 }

@@ -6,11 +6,11 @@ function checkForAuthentication(req, res, next){
         if(!token){
             return redirect("/login");
         }
-        const user = verifyToken(token);
+        const decodedUser = verifyToken(token);
 
         // Verify Token
-        if(!user) {
-            return resizeBy.redirect("/login");
+        if(!decodedUser) {
+            return res.redirect("/login");
         }
         
         // Attach the user to request Object
@@ -19,7 +19,7 @@ function checkForAuthentication(req, res, next){
         //continue to the next middleware
         next();
     } catch (err) {
-        console.log(error.message);
+        console.log(err.message);
         return res.redirect("/login");
     }
 }

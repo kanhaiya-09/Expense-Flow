@@ -45,4 +45,11 @@ button:hover{
     border-radius: 5px;
 }
 
+.logout{
+    display:block;
+    margin: 10px auto;
+    background-color: rgb(73, 202, 202);
+    border-radius: 5px;
+}
+
 

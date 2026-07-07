@@ -6,9 +6,12 @@ async function handleLoginRoute(req, res){
 }
 
 
-
+// Bcrypt import
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
+
+// Service Token Import
+const { generateToken, verifyToken } = require("../services/tokenService") 
 
 async function postSignup(req, res){
     try{    
@@ -82,9 +85,16 @@ async function postLogin(req, res){
 }
 
 
+// Logout
+async function handleLogout(req, res){
+    res.clearCookie("token");
+    return res.redirect("/login");
+}
+
 module.exports = {
     handleSignupRoute,
     handleLoginRoute,
     postSignup,
     postLogin,
+    handleLogout,
 }

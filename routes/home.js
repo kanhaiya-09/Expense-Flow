@@ -4,6 +4,7 @@ const router = express.Router();
 const homeController = require("../controllers/homeControllers")
 const { checkForAuthentication } = require("../middleware/authMiddlewares")
 
-router.get("/", checkForAuthentication, homeController.getHomePage);
+
+router.get("/", checkForAuthentication, homeController.getHomePage)
 
 module.exports = router;

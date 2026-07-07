@@ -492,3 +492,57 @@ Then req.cookies becomes:
     checkForAuthentication,
     homeController.handleHome
 );
+
+=> router.get(
+    "/",
+    middleware1,
+    middleware2,
+    middleware3,
+    controller
+);
+
+
+-------------------------------------------STEP 17: Authorization------------------------------------------
+
+Authentication	    Authorization
+Who are you?	    What are you allowed to do?
+Login	            Permissions
+JWT Verification    Ownership / Roles
+Identity	        Access Control
+
+
+// Database Relationship:
+We'll create a relationship like this:
+User Collection
+
+User
+ ├── _id
+ ├── fullname
+ └── email
+
+
+// Expense Collection
+Expense
+ ├── amount
+ ├── category
+ ├── description
+ └── createdBy
+
+Notice:
+createdBy
+↓
+User._id
+
+Every expense must belong to exactly one user.
+createdBy:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true,
+        },
+
+This is called a reference in MongoDB.
+Instead of storing the entire user document inside every expense, we store only the user's _id.
+
+This avoids duplication and keeps the database normalized.
+
+=> We already has a middleware with req.user=decodedUser, which gives us the user's information to the request.
