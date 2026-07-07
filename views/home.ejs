@@ -22,8 +22,30 @@
         </div>
     </nav>
     <section class="hero">
-    <h1 class="heading">Track Your Expenses Effectively</h1>
+    <h1 class="heading">Welcome to the Expense Flow </h1>
+
     <p style="font-family:'Courier New', Courier, monospace">Manage your income, monitor expenses, and stay financially organized</p>
+
+    <h2>My Expenses</h2>
+
+    <% if (expenses.length === 0) { %>
+
+        <p>No expenses found. </p>
+    <% } else { %>
+    
+        <ul>
+            <% expenses.forEach(expense => { %>
+                <li>
+                    $<%= expense.amount %>
+                    <%= expense.category %>
+                    <%= expense.description %>
+                </li>
+
+            <% }) %>
+
+        </ul>
+
+    <% } %>
 
     <button class="start" type="submit" > Get Started</button>
     <form action="/logout" method="post">

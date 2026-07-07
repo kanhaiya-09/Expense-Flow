@@ -6,3 +6,5 @@ const expenseController = require("../controllers/expenseControllers");
 const { checkForAuthentication } = require("../middleware/authMiddlewares")
 
 router.post("/expenses", checkForAuthentication, expenseController.postExpense);
+
+module.exports = router;

@@ -10,6 +10,11 @@ const homeRouter = require("./routes/home");
 const authRouter = require("./routes/auth");
 const expenseRouter = require("./routes/expense");
 
+app.use("/", homeRouter);
+app.use("/", authRouter);
+app.use("/", expenseRouter);
+
+
 
 //Connection MongoDB
 const connectMongoDB = require("./config/db");
@@ -25,8 +30,6 @@ app.use(express.urlencoded({
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-app.use("/", homeRouter);
-app.use("/", authRouter);
 
 
 // Database
