@@ -439,3 +439,56 @@ token=eyJhbGc...
 Now, instead of res.send(token) => We will redirect the user to ("/")
 
 Browser => POST /login => Express => Verify Password => Generate JWT => Set-Cookie => Redirect /
+
+// Till now, we have carried the cookie only. Didn't verify 
+=> The server still hasn't checked whether the token is valid.
+
+
+---------------------------------------STEP 15: Verify Token/Cookie---------------------------------------------
+
+Suppose the browser sends:
+
+GET /
+
+Along with:
+
+Cookie:
+token=eyJhbGc...
+
+Express receives the request.
+
+Thanks to cookie-parser, we can now access:
+
+req.cookies
+
+Think about what req.cookies contains.
+
+If the browser sends:
+
+Cookie:
+token=abc123
+theme=dark
+language=en
+
+Then req.cookies becomes:
+
+{
+    token: "abc123",
+    theme: "dark",
+    language: "en"
+}
+
+=> Getting the token: const token = req.cookies.token;
+=> if the user is not logged in: NO COOKIE => req.cookies.token => Undefined => redirect to login
+
+
+-----------------------------------------STEP 16: AUthentication Middleware---------------------------------------------
+
+=> Verification of token and user and redirecting it to preferred location
+
+=> How will we use this middleware?
+=> router.get(
+    "/",
+    checkForAuthentication,
+    homeController.handleHome
+);
