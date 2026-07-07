@@ -8,6 +8,7 @@ require("dotenv").config();
 //Routes
 const homeRouter = require("./routes/home");
 const authRouter = require("./routes/auth");
+const expenseRouter = require("./routes/expense");
 
 
 //Connection MongoDB

@@ -18,7 +18,10 @@ const expenseSchema = new mongoose.Schema(
         },
         createdBy:{
             type: mongoose.Schema.Types.ObjectId,
+            // The value stored in this field will be an ObjectId.
             ref: "User",
+            // This ObjectId belongs to the User model.
+            // The ref is used by Mongoose to understand the relationship between collections.
             required: true,
         },
     },
