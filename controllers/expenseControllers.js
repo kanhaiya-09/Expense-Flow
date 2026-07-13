@@ -1,4 +1,5 @@
-const Expense = require("../models/expenseModel")
+const Expense = require("../models/expenseModel");
+const { findOneAndUpdate } = require("../models/userModel");
 
 async function postExpense(req, res){
     try{
@@ -73,6 +74,34 @@ async function showEditExpense(req, res){
 async function updateExpense(req, res){
     try{
 
+        const { amount, category, description } = req.body;
+
+
+        // Validation
+        if (!amount || !category || !description) {
+            return res.status(400).send("All fields are required");
+        }
+
+        const updatedExpense = await Expense.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                createdBy: req.user._id,
+            },
+            {
+                amount,
+                category,
+                description,
+            },
+            {
+                returnDocument: "after"
+            }
+        );
+
+        if (!updatedExpense) {
+            return res.status(404).send("Expense not found");
+        }
+
+        return res.redirect("/");
     } catch (err) {
         console.log(err.message);
         return res.status(500).send("Internal Server Error")
