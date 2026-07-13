@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
     <link rel="stylesheet" href="/css/home.css">
 </head>
+
 <body>
     <nav class="header">
 
@@ -22,47 +24,80 @@
         </div>
     </nav>
     <section class="hero">
-    <h1 class="heading">Welcome to the Expense Flow </h1>
+        <h1 class="heading">Welcome to the Expense Flow </h1>
 
-    <p style="font-family:'Courier New', Courier, monospace">Manage your income, monitor expenses, and stay financially organized</p>
+        <p style="font-family:'Courier New', Courier, monospace">Manage your income, monitor expenses, and stay
+            financially organized</p>
 
-    <h2>My Expenses</h2>
+        <h2>Add Expense</h2>
 
-    <% if (expenses.length === 0) { %>
+        <form action="/expenses" method="POST">
 
-        <p>No expenses found. </p>
-    <% } else { %>
-    
-        <ul>
-            <% expenses.forEach(expense => { %>
-                <li>
-                    $<%= expense.amount %>
-                    <%= expense.category %>
-                    <%= expense.description %>
+            <div>
+                <label>Amount</label>
+                <input type="number" name="amount" required>
+            </div>
 
-                    <a href="/expenses/<%= expense._id %>/edit">
-                    Edit
-                    </a>
-                <form
-                    action="/expenses/delete/<%= expense._id %>"
-                    method="POST"
-                    style="display:inline;">
-                    <button type="submit">
-                    Delete
-                    </button>
-                </form>
-            </li>
+            <br>
 
-            <% }) %>
+            <div>
+                <label>Category</label>
+                <input type="text" name="category" required>
+            </div>
 
-        </ul>
+            <br>
 
-    <% } %>
+            <div>
+                <label>Description</label>
+                <input type="text" name="description" required>
+            </div>
 
-    <button class="start" type="submit" > Get Started</button>
-    <form action="/logout" method="post">
-    <button class="logout" type="submit", > Logout </button>
-    </form>
+            <br>
+
+            <button type="submit">
+                Add Expense
+            </button>
+
+        </form>
+
+        <hr>
+
+        <h2>My Expenses</h2>
+
+        <% if (expenses.length===0) { %>
+
+            <p>No expenses found. </p>
+            <% } else { %>
+
+                <ul>
+                    <% expenses.forEach(expense=> { %>
+                        <li>
+                            $<%= expense.amount %>
+                                <%= expense.category %>
+                                    <%= expense.description %>
+
+                                        <a href="/expenses/<%= expense._id %>/edit">
+                                            Edit
+                                        </a>
+                                        <form action="/expenses/delete/<%= expense._id %>" method="POST"
+                                            style="display:inline;">
+                                            <button type="submit">
+                                                Delete
+                                            </button>
+                                        </form>
+                        </li>
+
+                        <% }) %>
+
+                </ul>
+
+                <% } %>
+
+                    <button class="start" type="submit"> Get Started</button>
+                    <form action="/logout" method="post">
+                        <button class="logout" type="submit" ,> Logout </button>
+                    </form>
     </section>
 </body>
+
 </html>

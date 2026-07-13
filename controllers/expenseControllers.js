@@ -30,14 +30,18 @@ async function postExpense(req, res){
 async function deleteExpense(req, res) {
     try {
         const expenseId = req.params.id;
+        // console.log("Expense ID:", req.params.id);
+        // console.log("Logged in User:", req.user._id);
+        // const expense = await Expense.findById(req.params.id);
 
+        // console.log(expense);
         // We are using findByIdAndDelete instead of findOneAndDelete
         const deletedExpense = await Expense.findOneAndDelete({
             _id: expenseId,
-            cretedBy: req.user._id,
+            createdBy: req.user._id,
         })
         if(!deletedExpense) {
-            return res.status(404),send("Expense not found");
+            return res.status(404).send("Expense not found");
         }
         return res.redirect("/")
     } catch (error) {
