@@ -12,4 +12,7 @@ router.post(
     expenseController.deleteExpense
 );
 
+router.get("/expenses/:id/edit", checkForAuthentication, expenseController.showEditExpense)
+router.post("/expenses/:id", checkForAuthentication, expenseController.updateExpense)
+
 module.exports = router;

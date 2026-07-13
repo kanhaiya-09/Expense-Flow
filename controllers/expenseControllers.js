@@ -47,7 +47,29 @@ async function deleteExpense(req, res) {
 }
 
 
+async function showEditExpense(req, res){
+    try{
+
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send("Internal Server Error")
+    }
+}
+
+
+async function updateExpense(req, res){
+    try{
+
+    } catch (err) {
+        console.log(err.message);
+        return res.status(500).send("Internal Server Error")
+    }
+}
+
+
 module.exports = {
     postExpense,
     deleteExpense,
+    updateExpense,
+    showEditExpense,
 }
