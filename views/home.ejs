@@ -40,6 +40,9 @@
                     <%= expense.category %>
                     <%= expense.description %>
 
+                    <a href="/expenses/<%= expense._id %>/edit">
+                    Edit
+                    </a>
                 <form
                     action="/expenses/delete/<%= expense._id %>"
                     method="POST"

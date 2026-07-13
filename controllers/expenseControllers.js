@@ -49,7 +49,16 @@ async function deleteExpense(req, res) {
 
 async function showEditExpense(req, res){
     try{
-
+        const expense = await Expense.findOne({
+            _id: req.params.id,
+            createdBy: req.user._id,
+        })
+        if (!expense) {
+        return res.status(404).send("Expense not found");
+        }
+        return res.render("editExpense", {
+            expense,
+        });
     } catch (err) {
         console.log(err.message);
         return res.status(500).send("Internal Server Error")
