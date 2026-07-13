@@ -39,7 +39,16 @@
                     $<%= expense.amount %>
                     <%= expense.category %>
                     <%= expense.description %>
-                </li>
+
+                <form
+                    action="/expenses/delete/<%= expense._id %>"
+                    method="POST"
+                    style="display:inline;">
+                    <button type="submit">
+                    Delete
+                    </button>
+                </form>
+            </li>
 
             <% }) %>
 

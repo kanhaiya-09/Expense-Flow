@@ -29,12 +29,17 @@ async function postExpense(req, res){
 
 async function deleteExpense(req, res) {
     try {
-        const expenseId = req.User._id;
+        const expenseId = req.params.id;
 
-        if(createdBy === expenseId) {
-            
+        // We are using findByIdAndDelete instead of findOneAndDelete
+        const deletedExpense = await Expense.findOneAndDelete({
+            _id: expenseId,
+            cretedBy: req.user._id,
+        })
+        if(!deletedExpense) {
+            return res.status(404),send("Expense not found");
         }
-
+        return res.redirect("/")
     } catch (error) {
         console.log(error.message);
         return res.status(500).send("Internal Server Error");
@@ -42,4 +47,7 @@ async function deleteExpense(req, res) {
 }
 
 
-module.exports = { postExpense }
+module.exports = {
+    postExpense,
+    deleteExpense,
+}
